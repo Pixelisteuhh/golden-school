@@ -58,4 +58,4 @@ Créez le Cronjob
 
 ## Crédit
 
-Ce bot a été créé par **Betaaaaaaaaaaa** modifiée par moi.
+La base de Betaaa modifiée par 4wip
