@@ -35,7 +35,7 @@ module.exports = {
         let pf = p.fetch(`prefix_${message.guild.id}`)
         if (pf == null) pf = config.bot.prefixe
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) === true) {
 
             const emojion = "✅"
             const emojioff = "❌"

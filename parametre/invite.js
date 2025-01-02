@@ -1,5 +1,7 @@
 const Discord = require("discord.js");
+const db = require('quick.db');
 const config = require("../config");
+const owner = new db.table("Owner")
 
 module.exports = {
     name: 'invite',
@@ -7,7 +9,7 @@ module.exports = {
     description: `Permet de créer une invitation pour un serveur.`,
     async execute(client, message, args) {
 
-        if (config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)  ) {
 
             const guildID = args[0];
             if (isNaN(guildID) || !guildID) {

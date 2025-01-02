@@ -15,7 +15,7 @@ module.exports = {
   description: `Permet de changer le statut du bot en "écouter".`,
   async execute(client, message, args) {
 
-    if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id)) {
+    if (config.bot.buyer.includes(message.author.id)) {
 
       if (!message.guild) return;
 

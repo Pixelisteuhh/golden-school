@@ -15,7 +15,7 @@ module.exports = {
         let color = cl.fetch(`color_${message.guild.id}`)
         if (color == null) color = config.bot.couleur
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             if (args[0] == 'all') {
                 al.set(`config.${message.guild.id}.antilinkall`, true)
@@ -41,7 +41,7 @@ module.exports = {
                     .setColor(color)
                 message.channel.send({ embeds: [embed] })
             } else {
-                return message.reply(`Paramètre invalide. Veuillez spécifier **on** ou **off**`)
+                return message.reply(`Options disponibles: all/invite/off`)
             }
         }
     }

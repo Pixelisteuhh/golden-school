@@ -23,7 +23,7 @@ module.exports = {
         const perm3 = p3.fetch(`perm3_${message.guild.id}`);
         const modlogChannel = ml.get(`${message.guild.id}.modlog`);
 
-        if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm1) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm1) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)   === true) {
             let target = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
             if (!args[0]) return message.channel.send(`**Veuillez mentionner un utilisateur ou fournir son ID !**`);

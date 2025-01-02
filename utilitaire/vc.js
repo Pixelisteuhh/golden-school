@@ -1,6 +1,7 @@
 const Discord = module.require("discord.js");
 const db = require('quick.db')
 const cl = new db.table("Color")
+const owner = new db.table("Owner");
 const config = require("../config")
 const footer = config.bot.footer
  
@@ -12,6 +13,8 @@ module.exports = {
 
         let color = cl.fetch(`color_${message.guild.id}`)
         if (color == null) color = config.bot.couleur
+
+         if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) ) {
 
         const total = message.guild.memberCount
         const online = message.guild.presences.cache.filter((presence) => presence.status !== "offline").size
@@ -28,5 +31,6 @@ module.exports = {
             .setFooter({ text: `Stats ${message.guild.name}` })
         message.channel.send({ embeds: [embed] })
         message.delete();
+    }
     }
 }

@@ -18,7 +18,7 @@ Hébergement du bot sur Render | Gratuit (PC & Mobile)
 ```
 Faites un fork du gitHub : https://github.com/4wip/naoki-modifier/fork
 Allez dans le config.js et modifiez (appuie sur le petit crayon à droite)
-buyer & funny - changez par votre ID
+buyer - changez par votre ID
 couleur, footer, maxServer, préfixe - changez ce que vous voulez
 
 

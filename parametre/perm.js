@@ -19,7 +19,7 @@ module.exports = {
     description: `Permet de voir la liste des permissions du serveur.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             if (args[0] == 'list') {
 

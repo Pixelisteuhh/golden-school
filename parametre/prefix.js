@@ -1,6 +1,5 @@
 const Discord = require("discord.js")
 const db = require('quick.db')
-const owner = new db.table("Owner")
 const cl = new db.table("Color")
 const p = new db.table("Prefix")
 const config = require("../config")
@@ -11,7 +10,7 @@ module.exports = {
     description: `Permet de changer le prefix du bot sur un serveur.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (config.bot.buyer.includes(message.author.id)) {
 
             let color = cl.fetch(`color_${message.guild.id}`)
             if (color == null) color = config.bot.couleur

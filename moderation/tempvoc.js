@@ -17,7 +17,7 @@ module.exports = {
     description: `Permet de configurer des salons vocal temporaire.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             try {
 

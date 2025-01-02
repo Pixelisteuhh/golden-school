@@ -9,57 +9,12 @@ const footer = config.bot.footer;
 
 module.exports = {
     name: 'derank',
-    usage: 'derank [membre/all]',
-    description: `Permet de derank un membre ou tous les membres sur le serveur.`,
+    usage: 'derank <membre>',
+    description: `Permet de derank un membre sur le serveur.`,
     async execute(client, message, args) {
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id)) {
+    if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || message.member.roles.cache.has(pgs.get(`permgs_${message.guild.id}`) )  === true) {
             let color = cl.fetch(`color_${message.guild.id}`);
             if (color == null) color = config.bot.couleur;
-
-            if (!args[0]) {
-                return message.reply("Veuillez spécifier un membre ou 'all' pour derank tout le serveur.");
-            }
-
-            if (args[0].toLowerCase() === 'all') {
-           
-                let embedArray = [];
-                let value = false;
-                try {
-                    message.guild.members.cache.forEach(member => {
-                        if (member.id !== client.user.id) {
-                            embedArray.push({
-                                mid: `<@${member.id}>`,
-                                roles: member.roles.cache.filter(r => r.id !== message.guild.id).map(r => `<@&${r.id}>`).join(", ")
-                            });
-                            member.roles.set([]).catch(() => false);
-                        }
-                    });
-                    value = true;
-                } catch {
-                    value = false;
-                }
-
-                const embed = new Discord.MessageEmbed()
-                    .setColor(color)
-                    .setTitle("Voici les personnes qui ont été derank")
-                    .setDescription(embedArray.map(e => `${e.mid} -> ${e.roles}`).join("\n"))
-                if (value) message.channel.send({ embeds: [embed] }).catch(() => false);
-
-                const channellogs = modlog.get(`${message.guild.id}.modlog`);
-                let roleping = db.get(`role_${message.guild.id}`);
-                if (roleping === null) roleping = "@everyone";
-
-                const alert = new Discord.MessageEmbed()
-                    .setColor(color)
-                    .setTitle(`${message.author.tag} a effectué un derank all`)
-                    .setDescription(`⚠️ Toutes les personnes sur le serveur ont été derank\nExécuteur : <@${message.author.id}>`)
-                    .setTimestamp()
-                    .setFooter({ text: `⚠️ ${footer}` });
-
-                const logchannel = client.channels.cache.get(channellogs);
-                if (logchannel) logchannel.send({ content: `${roleping}`, embeds: [alert] }).catch(() => false);
-
-            } else {
         
                 let member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
                 if (!member) return message.reply("Veuillez mentionner un membre valide ou fournir un ID valide.");
@@ -94,6 +49,5 @@ module.exports = {
                 const logchannel = client.channels.cache.get(channellogs);
                 if (logchannel) logchannel.send({ content: `${roleping}`, embeds: [alert] }).catch(() => false);
             }
-        }
     }
 };

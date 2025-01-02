@@ -13,7 +13,7 @@ module.exports = {
     description: `Commande transcript.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             const msgd = await message.channel.send({
                 content: `⚠️ Récupération des messages, cela peut prendre un certain temps...`,

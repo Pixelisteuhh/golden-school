@@ -11,7 +11,7 @@ module.exports = {
   description: `Permet d'ajouter un rôle à tous les membres du serveur`,
   async execute(client, message, args) {
 
-    if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+    if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
       let color = cl.fetch(`color_${message.guild.id}`)
       if (color == null) color = config.bot.couleur

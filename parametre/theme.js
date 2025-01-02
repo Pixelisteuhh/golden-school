@@ -10,7 +10,7 @@ module.exports = {
     description: `Permet de changer la couleur de l'embed dans config.json.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             let color = args[0];
             if (!color) return message.reply("Merci d'indiquer la couleur que vous souhaitez");

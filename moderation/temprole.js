@@ -15,7 +15,7 @@ module.exports = {
         let color = cl.fetch(`color_${message.guild.id}`);
         if (color == null) color = config.bot.couleur;
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) || message.member.roles.cache.has(pgs.get(`permgs_${message.guild.id}`))) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   || message.member.roles.cache.has(pgs.get(`permgs_${message.guild.id}`))) {
             if (args[0] === 'list') {
                 let allTempRoles = temproles.fetch(`temproles_${message.guild.id}`) || [];
                 if (allTempRoles.length === 0) {

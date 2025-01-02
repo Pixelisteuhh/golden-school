@@ -15,10 +15,10 @@ const {
 module.exports = {
     name: 'join',
     usage: 'join',
-    description: `Permet de configurer le rôle soutien.`,
+    description: `Permet de configurer le rôle bienvenue.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) === true) {
 
             let color = cl.fetch(`color_${message.guild.id}`)
             if (color == null) color = config.bot.couleur

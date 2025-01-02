@@ -15,7 +15,7 @@ module.exports = {
         let color = cl.fetch(`color_${message.guild.id}`);
         if (color == null) color = config.bot.couleur;
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             let fufu = sanction.get(`sanction_${message.guild.id}`);
             if (fufu == null) fufu = "derank";

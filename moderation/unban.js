@@ -11,7 +11,7 @@ module.exports = {
     async execute(client, message, args) {
         const perm3 = p3.fetch(`perm3_${message.guild.id}`);
 
-        if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id)) {
+        if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)  ) {
             if (!args[0]) {
                 return message.reply("Veuillez spécifier un membre ou 'all' pour débannir tous les membres.");
             }
@@ -41,7 +41,6 @@ module.exports = {
                 }
 
             } else {
-                // Unban specific member
                 const user = args[0];
                 const bans = await message.guild.bans.fetch();
                 const isBanned = bans.has(user);

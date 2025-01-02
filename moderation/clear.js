@@ -12,13 +12,12 @@ module.exports = {
     usage: 'clear',
     description: `Permet de supprimer des messages`,
     async execute(client, message, args) {
-        const perm2 = p2.fetch(`perm2_${message.guild.id}`)
         const perm3 = p3.fetch(`perm3_${message.guild.id}`)
 
         if (message.mentions.members.first()) {
 
 
-            if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true)
+            if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)   === true)
 
                 message.delete()
             message.channel.messages.fetch({ limit: 100 })
@@ -31,7 +30,7 @@ module.exports = {
 
         } else
             if (!isNaN(message.content.split(' ')[1])) {
-                if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+                if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)   === true) {
 
                     let amount = 0;
                     if (message.content.split(' ')[1] === '1' || message.content.split(' ')[1] === '0') {
@@ -60,7 +59,7 @@ module.exports = {
 
             } else {
 
-                if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+                if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)   === true) {
 
 
                     await message.channel.bulkDelete(100, true).then((_message) => {

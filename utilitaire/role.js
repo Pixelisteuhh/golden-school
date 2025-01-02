@@ -2,8 +2,6 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const config = require("../config");
 const db = require('quick.db');
 const cl = new db.table("Color");
-const p1 = new db.table("Perm1");
-const p2 = new db.table("Perm2");
 const p3 = new db.table("Perm3");
 const owner = new db.table("Owner");
 
@@ -14,17 +12,7 @@ module.exports = {
         try {
             let color = cl.get(`color_${message.guild.id}`) || config.bot.couleur;
 
-            const permissions = [p1.get(`perm1_${message.guild.id}`), p2.get(`perm2_${message.guild.id}`), p3.get(`perm3_${message.guild.id}`)];
-            const isOwner = owner.get(`owners.${message.author.id}`);
-            const hasPermission = permissions.some(perm => message.member.roles.cache.has(perm));
-            const isAuthorized = isOwner || hasPermission || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id);
-
-            if (!isAuthorized) 
-                return message.channel.send('Vous n\'êtes pas autorisé à utiliser cette commande.');
-
-            let role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
-            if (!role) 
-                return message.channel.send('Veuillez préciser un rôle.');
+             if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)  ) {
 
             let membersWithRole = role.members.map(member => member.user.tag).filter((value, index, self) => self.indexOf(value) === index);
 
@@ -125,7 +113,7 @@ module.exports = {
                 row.components.forEach(component => component.setDisabled(true));
                 sentMessage.edit({ components: [row] });
             });
-
+        }
         } catch (error) {
             console.error("Une erreur est survenue lors de l'exécution de la commande 'role':", error);
             message.channel.send("Une erreur est survenue lors de l'exécution de la commande.");

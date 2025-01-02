@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const db = require('quick.db');
-const owner = new db.table("Owner");
 const config = require("../config");
 
 function sleep(ms) {
@@ -15,7 +14,7 @@ module.exports = {
   description: `Permet de changer le statut du bot par "Joue à".`,
   async execute(client, message, args) {
 
-    if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id)) {
+    if (config.bot.buyer.includes(message.author.id)) {
 
       if (!message.guild) return;
 

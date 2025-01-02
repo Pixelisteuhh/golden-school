@@ -3,9 +3,11 @@ const db = require('quick.db');
 const cl = new db.table("Color");
 const config = require("../config");
 const moment = require('moment');
+const p1 = new db.table("Perm1");
+const p2 = new db.table("Perm2");
+const owner = new db.table("Owner");
+const p3 = new db.table("Perm3");
 require('moment/locale/fr');
- ;
-
 moment.locale('fr');
 
 module.exports = {
@@ -15,6 +17,7 @@ module.exports = {
     async execute(client, message, args) {
         let color = cl.fetch(`color_${message.guild.id}`);
         if (color == null) color = config.bot.couleur;
+         if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm1) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)  ) {
 
         if (!args[0]) {
             return message.channel.send("Veuillez fournir un argument valide (pic, banner, info).");
@@ -100,4 +103,5 @@ module.exports = {
         } else {
         }
     }
+}
 };

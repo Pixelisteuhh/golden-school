@@ -10,7 +10,7 @@ module.exports = {
     description: `Permet de configurer le rôle qui aura accès aux tickets`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             let role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0])
 

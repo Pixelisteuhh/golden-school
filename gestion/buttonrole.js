@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const db = require('quick.db')
 const owner = new db.table("Owner")
+const p3 = new db.table("Perm3")
 const cl = new db.table("Color")
 const config = require("../config")
 
@@ -10,7 +11,7 @@ module.exports = {
     description: `Permet de faire un menu buttonrole.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)) {
 
             let color = cl.fetch(`color_${message.guild.id}`)
             if (color == null) color = config.bot.couleur

@@ -3,6 +3,10 @@ const moment = require('moment');
 const db = require('quick.db');
 const cl = new db.table("Color");
 const config = require("../config");
+const p1 = new db.table("Perm1");
+const p2 = new db.table("Perm2");
+const p3 = new db.table("Perm3");
+const owner = new db.table("Owner");
 
 module.exports = {
     name: 'lookup',
@@ -12,6 +16,8 @@ module.exports = {
 
         let color = cl.fetch(`color_${message.guild.id}`);
         if (color == null) color = config.bot.couleur;
+
+         if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm1) || message.member.roles.cache.has(perm2) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)  ) {
 
         const permissions = {
             "ADMINISTRATOR": "Administrator",
@@ -70,4 +76,5 @@ module.exports = {
 
         message.channel.send({ embeds: [userlol] });
     }
+}
 };

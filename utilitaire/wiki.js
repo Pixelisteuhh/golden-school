@@ -18,7 +18,6 @@ module.exports = {
         if (!args[0]) {
             return message.channel.send("Veuillez fournir une phrase à rechercher sur Wikipedia.");
         }
-
         
         const searchTerm = args.join('_');
         const apiUrl = `https://fr.wikipedia.org/api/rest_v1/page/summary/${searchTerm}`;

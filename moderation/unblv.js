@@ -3,6 +3,7 @@ const db = require('quick.db')
 const config = require("../config")
 const owner = new db.table("Owner")
 const cl = new db.table("Color")
+const p3 = new db.table("Perm3")
 const blv = new db.table("blvoc")
 const footer = config.bot.footer
 
@@ -14,7 +15,8 @@ module.exports = {
     async execute(client, message, args) {
 
 
-        if (owner.get(`owners.${message.author.id}`) || (config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id)) === true) {
+        const perm3 = p3.fetch(`perm3_${message.guild.id}`)
+ if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)   === true) {
 
             let color = cl.fetch(`color_${message.guild.id}`)
             if (color == null) color = config.bot.couleur

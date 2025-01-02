@@ -15,7 +15,7 @@ module.exports = {
         let color = cl.fetch(`color_${message.guild.id}`)
         if (color == null) color = config.bot.couleur
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true) {
 
             if (args[0] == 'on') {
                 ae.set(`config.${message.guild.id}.antieveryone`, true)

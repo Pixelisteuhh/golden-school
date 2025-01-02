@@ -4,6 +4,7 @@ const config = require("../config")
 const owner = new db.table("Owner")
 const cl = new db.table("Color")
 const blv = new db.table("blvoc")
+const pgs = new db.table("PermGs");
 const footer = config.bot.footer
 
 
@@ -14,7 +15,7 @@ module.exports = {
     async execute(client, message, args) {
 
 
-        if (owner.get(`owners.${message.author.id}`) || (config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id)) === true) {
+  if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || message.member.roles.cache.has(pgs.get(`permgs_${message.guild.id}`) )  === true) {
 
             let color = cl.fetch(`color_${message.guild.id}`)
             if (color == null) color = config.bot.couleur
@@ -54,9 +55,8 @@ module.exports = {
                     .setDescription(!own ? "Aucun" : own.map((user, i) => `<@${user}>`).slice(0, 30).join("\n")
                     )
                     .setFooter({ text: `${footer}` })
-                message.channel.send({ embeds: [embed] })
-
-
+                    const logchannel = client.channels.cache.get(ml.get(`${message.guild.id}.modlog`))
+                    if (logchannel) logchannel.send({ embeds: [embed] }).catch(() => false)
             }
         }
     }

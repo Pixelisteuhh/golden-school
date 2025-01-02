@@ -15,7 +15,7 @@ module.exports = {
         let color = cl.fetch(`color_${message.guild.id}`)
         if (color == null) color = config.bot.couleur
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) === true) {
 
             if (args[0] === "lock") {
                 if (lock.get(`serverlock_${message.guild.id}`) === "lock") return message.channel.send(`**Le serveur est déjà verroouillé**`)

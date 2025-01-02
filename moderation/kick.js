@@ -14,10 +14,11 @@ module.exports = {
     description: `Permet de kick un membre.`,
     async execute(client, message, args) {
 
+        const perm3 = p3.fetch(`perm3_${message.guild.id}`)
         let color = cl.fetch(`color_${message.guild.id}`)
         if (color == null) color = config.bot.couleur
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+            if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id)   === true) {
 
             let member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
 
@@ -26,7 +27,7 @@ module.exports = {
             }
 
             if (member.id === message.author.id) {
-                return message.reply("Tu ne peux pas te kick !")
+                return message.reply("Tu ne peux pas te kick")
             }
 
             let reason = args.slice(1).join(" ") || `Aucune raison`

@@ -9,7 +9,7 @@ module.exports = {
     name: "mybot",
     async execute(client, message, args, data, color) {
 
-        if (config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (config.bot.buyer.includes(message.author.id)) {
 
             let color = cl.fetch(`color_${message.guild.id}`)
             if (color == null) color = config.bot.couleur

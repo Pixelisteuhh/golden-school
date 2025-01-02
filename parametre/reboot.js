@@ -1,6 +1,5 @@
 const Discord = require("discord.js")
 const db = require('quick.db')
-
 const config = require("../config")
  
 
@@ -10,7 +9,7 @@ module.exports = {
     description: `Permet de redémarrer le bot.`,
     async execute(client, message, args) {
 
-        if (config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (config.bot.buyer.includes(message.author.id)) {
 
             message.channel.send(`ℹ️ Reboot en cours ...`).then(async message => {
                 message.edit(`ℹ️ Reboot en cours ...`)

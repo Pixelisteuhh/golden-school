@@ -8,7 +8,7 @@ module.exports = {
     description: `Permet de forcer le bot à quitter un serveur.`,
     async execute(client, message, args) {
 
-        if (config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (config.bot.buyer.includes(message.author.id)) {
 
             const guildID = args[0]
             if (isNaN(guildID) || !guildID) {

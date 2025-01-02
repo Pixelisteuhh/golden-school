@@ -5,6 +5,7 @@ const cl = new db.table("Color")
 const config = require("../config")
 const fs = require('fs')
 const moment = require('moment')
+const pgs = new db.table("PermGs");
 const ml = new db.table("modlog")
 const p3 = new db.table("Perm3")
 
@@ -16,8 +17,9 @@ module.exports = {
 
         let color = cl.fetch(`color_${message.guild.id}`)
         if (color == null) color = config.bot.couleur
+        const perm3 = p3.fetch(`perm3_${message.guild.id}`);
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || message.member.roles.cache.has(perm3) || config.bot.buyer.includes(message.author.id) || message.member.roles.cache.has(pgs.get(`permgs_${message.guild.id}`) )  === true) {
 
             let member = message.mentions.members.first() || message.guild.members.cache.get(args[0])
             if (!member) try{
@@ -68,7 +70,7 @@ module.exports = {
             }
 
             
-            if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true)
+            if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id)   === true)
              return  message.reply("Tu ne peux pas le bannir ! Il est owner du bot.")
              
             let reason = args.slice(1).join(" ") || `Aucune raison`

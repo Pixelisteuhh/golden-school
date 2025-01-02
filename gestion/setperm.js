@@ -12,13 +12,13 @@ const config = require("../config")
 const footer = config.bot.footer
 
 module.exports = {
-    name: 'set',
-    usage: 'set <perm1/2/3/gs/gp/ga> @role',
+    name: 'setp',
+    usage: 'setp <perm1/2/3/gs/gp/ga> @role',
     category: "owner",
     description: `Permet de gérer les permissions des rôles du serveur.`,
     async execute(client, message, args) {
 
-        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) || config.bot.funny.includes(message.author.id) === true) {
+        if (owner.get(`owners.${message.author.id}`) || config.bot.buyer.includes(message.author.id) === true) {
 
             let color = cl.fetch(`color_${message.guild.id}`)
             if (color == null) color = config.bot.couleur
