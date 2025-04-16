@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const db = require('quick.db');
 const database = require("easy-json-database");
-const fumer = new Database("../databases/fumer.json"); // fichier où les données seront stockées
+const fumer = new database("../databases/fumer.json"); // fichier où les données seront stockées
 const cl = new db.table("Color");
 const config = require("../config");
 const footer = config.bot.footer;
