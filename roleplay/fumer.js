@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const mongoose = require('mongoose');
 const fumer = require("./fumer");
-const config = require("./config");
+const config = require('./config')
 const cl = require('quick.db').table("Color");
 const footer = config.bot.footer;
 
