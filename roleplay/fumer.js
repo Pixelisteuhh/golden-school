@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
-const Fumer = require("./mongoose.js");
+const mongoose = require('mongoose');
+const fumer = require("./mongoose.js");
 const config = require("./config.js");
 const cl = require('quick.db').table("Color");
 const footer = config.bot.footer;
@@ -14,7 +15,7 @@ module.exports = {
 
     // Si l'argument est "list", on affiche le classement
     if (args[0] === "list") {
-      const fumeurs = await Fumer.find({ guildId: message.guild.id }).sort({ count: -1 }).limit(10);
+      const fumeurs = await fumer.find({ guildId: message.guild.id }).sort({ count: -1 }).limit(10);
 
       if (fumeurs.length === 0) {
         return message.channel.send("Aucun fumeur enregistré pour le moment.");
@@ -44,10 +45,10 @@ module.exports = {
 
       message.channel.send({ embeds: [embedFume] });
 
-      let userData = await Fumer.findOne({ userId: message.author.id, guildId: message.guild.id });
+      let userData = await fumer.findOne({ userId: message.author.id, guildId: message.guild.id });
 
       if (!userData) {
-        userData = await Fumer.create({
+        userData = await fumer.create({
           userId: message.author.id,
           guildId: message.guild.id,
           count: 1,
