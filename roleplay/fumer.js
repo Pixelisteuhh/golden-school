@@ -1,25 +1,19 @@
-// Charger les variables d'environnement
-require('dotenv').config();
-
-const mongoose = require('mongoose');
 const Discord = require("discord.js");
+const mongoose = require('mongoose');
 const fumer = require("./fumer");
 const config = require('../config');
 const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
 
-// Connexion à MongoDB avec l'URL depuis le fichier .env
+// Connexion à MongoDB avec la variable d'environnement
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-}).then(() => {
-  console.log("Connected to MongoDB!");
-}).catch(err => {
-  console.error("Failed to connect to MongoDB", err);
-});
+})
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch((err) => console.error("Erreur de connexion MongoDB : ", err));
 
-// Code de la commande fumer...
 module.exports = {
   name: 'fumer',
   usage: 'fumer [list]',
@@ -30,25 +24,30 @@ module.exports = {
 
     // Si l'argument est "list", on affiche le classement
     if (args[0] === "list") {
-      const fumeurs = await fumer.find({ guildId: message.guild.id }).sort({ count: -1 }).limit(10);
+      try {
+        const fumeurs = await fumer.find({ guildId: message.guild.id }).sort({ count: -1 }).limit(10);
 
-      if (fumeurs.length === 0) {
-        return message.channel.send("Aucun fumeur enregistré pour le moment.");
+        if (fumeurs.length === 0) {
+          return message.channel.send("Aucun fumeur enregistré pour le moment.");
+        }
+
+        const classement = fumeurs.map((f, index) => {
+          const user = message.guild.members.cache.get(f.userId);
+          const tag = user ? user.user.tag : `Utilisateur inconnu (${f.userId})`;
+          return `**#${index + 1}** - ${tag} : ${f.count} 🚬`;
+        }).join("\n");
+
+        const embedList = new Discord.MessageEmbed()
+          .setTitle("🏆 Classement des fumeurs")
+          .setDescription(classement)
+          .setColor(color)
+          .setFooter(footer);
+
+        return message.channel.send({ embeds: [embedList] });
+      } catch (error) {
+        console.error(error);
+        message.channel.send("Erreur : " + error.message);
       }
-
-      const classement = fumeurs.map((f, index) => {
-        const user = message.guild.members.cache.get(f.userId);
-        const tag = user ? user.user.tag : `Utilisateur inconnu (${f.userId})`;
-        return `**#${index + 1}** - ${tag} : ${f.count} 🚬`;
-      }).join("\n");
-
-      const embedList = new Discord.MessageEmbed()
-        .setTitle("🏆 Classement des fumeurs")
-        .setDescription(classement)
-        .setColor(color)
-        .setFooter(footer);
-
-      return message.channel.send({ embeds: [embedList] });
     }
 
     // Sinon, on exécute le comportement normal : +fumer
@@ -72,7 +71,6 @@ module.exports = {
         userData.count += 1;
         await userData.save();
       }
-
     } catch (error) {
       console.error(error);
       message.channel.send("Erreur : " + error.message);
