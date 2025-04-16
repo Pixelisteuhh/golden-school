@@ -26,7 +26,7 @@ module.exports = {
         fumer.set(message.author.id, fumernb + 1);
         try {
             const embed = new Discord.MessageEmbed()
-                .setDescription(fumernb)
+                .setDescription('${fumernb}')
                 .setColor(color)
                 .setFooter(footer);
 
