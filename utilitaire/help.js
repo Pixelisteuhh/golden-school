@@ -77,7 +77,6 @@ module.exports = {
     **\`${pf}find <membre>\`**
     **\`${pf}serveur <info/pic/banner>\`**
     **\`${pf}snipe\`**
-    **\`${pf}support\`**
     **\`${pf}wiki <mot-clé>\`**
     **\`${pf}vc\`**
     **\`${pf}bypass\`**
@@ -373,9 +372,6 @@ Permet de faire une recherche wikipédia.
 
 **\`${pf}bypass\`**
 Permet de voir quelles rank peuvent bypass des permissions.
-
-**\`${pf}support\`**
-Permet d'avoir le serveur support du bot.
 
       `)
             .setFooter({ text: `${footer} | Préfixe : ${pf}` })
