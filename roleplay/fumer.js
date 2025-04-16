@@ -24,15 +24,10 @@ module.exports = {
         }
         const fumernb = fumer.get(message.author.id) || 0;
         fumer.set(message.author.id, fumernb + 1);
-        try {
-            const embed = new Discord.MessageEmbed()
-                .setDescription(`${fumernb}`)
-                .setColor(color)
-                .setFooter(footer);
-
-            message.channel.send({ embeds: [embed] });
-        } catch (error) {
-            message.channel.send("Erreur : " + error.message);
-        }
+        const embed = new Discord.MessageEmbed()
+         .setDescription(`${fumernb}`)
+         .setColor(color)
+         .setFooter(footer);
+        message.channel.send({ embeds: [embed] });
     }
 };
