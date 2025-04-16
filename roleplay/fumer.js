@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const Fumer = require("../../models/Fumer");
+const Fumer = require("./fumer.js");
 const config = require("../../config");
 const cl = require('quick.db').table("Color");
 const footer = config.bot.footer;
