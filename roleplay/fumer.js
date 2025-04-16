@@ -6,9 +6,6 @@ const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
 
-console.log("Mongo URI: ", process.env.MONGODB_URI); // Pour vérifier si l'URL de connexion est récupérée
-
-
 // Connexion à MongoDB avec la variable d'environnement
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
