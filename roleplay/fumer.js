@@ -1,11 +1,25 @@
-const Discord = require("discord.js");
+// Charger les variables d'environnement
+require('dotenv').config();
+
 const mongoose = require('mongoose');
+const Discord = require("discord.js");
 const fumer = require("./fumer");
-const config = require('../config')
+const config = require('../config');
 const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
 
+// Connexion à MongoDB avec l'URL depuis le fichier .env
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log("Connected to MongoDB!");
+}).catch(err => {
+  console.error("Failed to connect to MongoDB", err);
+});
+
+// Code de la commande fumer...
 module.exports = {
   name: 'fumer',
   usage: 'fumer [list]',
