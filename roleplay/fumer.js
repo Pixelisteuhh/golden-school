@@ -7,7 +7,7 @@ const cl = new db.table("Color");
 const footer = config.bot.footer;
 
 // Connexion à MongoDB avec la variable d'environnement
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
