@@ -6,13 +6,22 @@ const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
 
-// Connexion à MongoDB avec la variable d'environnement
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch((err) => console.error("Erreur de connexion MongoDB : ", err));
+const mongoose = require('mongoose');
+
+async function connectToMongo() {
+  try {
+    console.log("URI MongoDB :", process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connexion à MongoDB réussie !");
+  } catch (err) {
+    console.error("Erreur de connexion MongoDB : ", err);
+  }
+}
+
+connectToMongo();
 
 module.exports = {
   name: 'fumer',
