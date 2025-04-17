@@ -6,8 +6,6 @@ const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
 
-const mongoose = require('mongoose');
-
 async function connectToMongo() {
   try {
     console.log("URI MongoDB :", process.env.MONGO_URI);
