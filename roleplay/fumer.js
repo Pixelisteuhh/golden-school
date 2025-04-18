@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const mongoose = require('mongoose');
-const fumer = require("./fumer");
+const fumer = require("../fumer");
 const config = require('../config');
 const db = require('quick.db');
 const cl = new db.table("Color");
