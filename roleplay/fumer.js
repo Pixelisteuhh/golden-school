@@ -1,9 +1,9 @@
-const { MessageEmbed } = require("discord.js");
-const DB = require('easy-json-db'); // Importation de EasyJSONDB
-const db = new DB("./data.json");  // Chemin vers le fichier JSON où les données sont stockées
+const { fumer } = require('../mongoose'); // Cela importe fumer depuis mongoose.js
 const config = require('../config');
-const cl = require('quick.db').table("Color");
+const db = require('quick.db');
+const cl = new db.table("Color");
 const footer = config.bot.footer;
+require('../mongooseconnexion'); // Connexion à MongoDB (en import)
 
 module.exports = {
   name: 'fumer',
@@ -16,23 +16,19 @@ module.exports = {
     // Si l'argument est "list", on affiche le classement
     if (args[0] === "list") {
       try {
-        const fumeurs = db.get("fumeurs") || [];  // Récupérer les fumeurs depuis la base de données JSON
+        const fumeurs = await fumer.find({ guildId: message.guild.id }).sort({ count: -1 }).limit(10);
 
         if (fumeurs.length === 0) {
           return message.channel.send("Aucun fumeur enregistré pour le moment.");
         }
 
-        // Trier les fumeurs par "count"
-        const classement = fumeurs
-          .sort((a, b) => b.count - a.count)
-          .slice(0, 10) // Limiter à 10 premiers
-          .map((f, index) => {
-            const user = message.guild.members.cache.get(f.userId);
-            const tag = user ? user.user.tag : `Utilisateur inconnu (${f.userId})`;
-            return `**#${index + 1}** - ${tag} : ${f.count} 🚬`;
-          }).join("\n");
+        const classement = fumeurs.map((f, index) => {
+          const user = message.guild.members.cache.get(f.userId);
+          const tag = user ? user.user.tag : `Utilisateur inconnu (${f.userId})`;
+          return `**#${index + 1}** - ${tag} : ${f.count} 🚬`;
+        }).join("\n");
 
-        const embedList = new MessageEmbed()
+        const embedList = new Discord.MessageEmbed()
           .setTitle("🏆 Classement des fumeurs")
           .setDescription(classement)
           .setColor(color)
@@ -47,28 +43,24 @@ module.exports = {
 
     // Sinon, on exécute le comportement normal : +fumer
     try {
-      const embedFume = new MessageEmbed()
+      const embedFume = new Discord.MessageEmbed()
         .setDescription(`<@${message.author.id}> fume`)
         .setColor(color)
         .setFooter(footer);
 
       message.channel.send({ embeds: [embedFume] });
 
-      // Récupération de l'utilisateur dans la base de données
-      let userData = db.get(`fumeurs.${message.guild.id}.${message.author.id}`);
+      let userData = await fumer.findOne({ userId: message.author.id, guildId: message.guild.id });
 
       if (!userData) {
-        // Si l'utilisateur n'existe pas, on le crée
-        userData = {
+        userData = await fumer.create({
           userId: message.author.id,
           guildId: message.guild.id,
           count: 1,
-        };
-        db.push(`fumeurs.${message.guild.id}`, userData);  // Ajouter l'utilisateur à la liste des fumeurs
+        });
       } else {
-        // Sinon, on incrémente le compteur
         userData.count += 1;
-        db.set(`fumeurs.${message.guild.id}.${message.author.id}`, userData);  // Sauvegarder les données mises à jour
+        await userData.save();
       }
     } catch (error) {
       console.error(error);
