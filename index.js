@@ -6,6 +6,9 @@ const { readdirSync } = require("fs")
 const db = require('quick.db')
 const p = new db.table("Prefix")
 const logembed = new db.table("embedlog")
+const connectToMongo = require('./mongoose');
+connectToMongo();
+
 ms = require("ms")
 const color = config.bot.couleur
 const client = new Client({

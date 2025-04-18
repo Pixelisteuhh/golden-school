@@ -1,25 +1,9 @@
-const Discord = require("discord.js");
-const mongoose = require('mongoose');
-const fumer = require("../fumer");
+const { fumer } = require("../mongoose"); // On suppose que ton modèle est dans mongoose.js
 const config = require('../config');
 const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
-
-async function connectToMongo() {
-  try {
-    console.log("URI MongoDB :", process.env.MONGO_URI);
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("Connexion à MongoDB réussie !");
-  } catch (err) {
-    console.error("Erreur de connexion MongoDB : ", err);
-  }
-}
-
-connectToMongo();
+require("../mongooseConnexion"); // Connexion à MongoDB (en import)
 
 module.exports = {
   name: 'fumer',
