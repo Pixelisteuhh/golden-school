@@ -3,6 +3,8 @@ const config = require('../config');
 const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
+const Discord = require('discord.js');
+
 require('../mongooseconnexion'); // Connexion à MongoDB (en import)
 
 module.exports = {
