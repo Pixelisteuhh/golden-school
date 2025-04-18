@@ -6,7 +6,8 @@ const { readdirSync } = require("fs")
 const db = require('quick.db')
 const p = new db.table("Prefix")
 const logembed = new db.table("embedlog")
-const connectToMongo = require('./mongooseconnexion');
+const connectToMongo = require('./mongooseconnexion'); // Assurez-vous que le chemin soit correct
+
 connectToMongo();
 
 ms = require("ms")

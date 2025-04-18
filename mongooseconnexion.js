@@ -1,5 +1,3 @@
-// mongooseConnexion.js
-
 const mongoose = require('mongoose');
 
 async function connectToMongo() {
@@ -15,6 +13,4 @@ async function connectToMongo() {
   }
 }
 
-connectToMongo();
-
-module.exports = mongoose;
+module.exports = connectToMongo;
