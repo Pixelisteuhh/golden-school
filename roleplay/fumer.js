@@ -1,9 +1,9 @@
-const { fumer } = require("../mongoose"); // On suppose que ton modèle est dans mongoose.js
+const { fumer } = require('../mongoose'); // Cela importe fumer depuis mongoose.js
 const config = require('../config');
 const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
-require("../mongooseConnexion"); // Connexion à MongoDB (en import)
+require('../mongooseconnexion'); // Connexion à MongoDB (en import)
 
 module.exports = {
   name: 'fumer',
