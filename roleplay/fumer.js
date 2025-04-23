@@ -4,7 +4,7 @@ const cl = new db.table("Color");
 const footer = config.bot.footer;
 const Discord = require('discord.js');
 const EasyJsonDB = require("easy-json-database");
-const fumerDB = new EasyJsonDB("./databases/fumer.json");
+const fumerDB = new EasyJsonDB("./database/fumer.json");
 
 module.exports = {
   name: 'fumer',
