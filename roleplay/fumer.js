@@ -22,19 +22,21 @@ module.exports = {
         console.log('Données récupérées :', all);
 
         // Filtrage des fumeurs pour la guildId de message.guild.id
-        const fumeurs = all.filter(entry => {
-          // Vérifie si la guildId dans la clé correspond à celle du serveur
-          const [guildId] = entry.key.split('_'); // Découpe la clé pour obtenir guildId
-          console.log(`Filtrage: ${guildId} == ${message.guild.id}`);
-          return guildId === message.guild.id;
-        }).sort((a, b) => b.data.count - a.data.count)
-          .slice(0, 10);
+        const fumeurs = Object.entries(all)
+          .filter(([key, val]) => {
+            // Vérifie si la guildId dans la clé correspond à celle du serveur
+            const [guildId] = key.split('_'); // Découpe la clé pour obtenir guildId
+            console.log(`Filtrage: ${guildId} == ${message.guild.id}`);
+            return guildId === message.guild.id;
+          })
+          .sort((a, b) => b[1].count - a[1].count) // Trie par nombre de fumeurs
+          .slice(0, 10); // Prendre les 10 premiers
 
         if (fumeurs.length === 0) {
           return message.channel.send("Aucun fumeur enregistré pour le moment.");
         }
 
-        const classement = fumeurs.map(([id, data], index) => {
+        const classement = fumeurs.map(([key, data], index) => {
           const user = message.guild.members.cache.get(data.userId);
           const tag = user ? user.user.tag : `Utilisateur inconnu (${data.userId})`;
           return `**#${index + 1}** - ${tag} : ${data.count} 🚬`;
