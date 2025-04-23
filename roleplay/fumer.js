@@ -16,8 +16,11 @@ module.exports = {
 
     // Si l'argument est "list", on affiche le classement
     if (args[0] === "list") {
+      console.log('Affichage du classement des fumeurs...');
       try {
         const all = fumerDB.all();
+        console.log('Données récupérées :', all);
+
         const fumeurs = Object.entries(all)
           .filter(([_, val]) => val.guildId === message.guild.id)
           .sort((a, b) => b[1].count - a[1].count)
@@ -47,6 +50,7 @@ module.exports = {
     }
 
     // Sinon, on exécute le comportement normal : +fumer
+    console.log('Exécution de la commande fumer...');
     try {
       const embedFume = new Discord.MessageEmbed()
         .setDescription(`<@${message.author.id}> fume`)
@@ -70,6 +74,7 @@ module.exports = {
 
       // Sauvegarde les données avec set() et non save().
       fumerDB.set(key, userData);
+      console.log(`Données sauvegardées : ${JSON.stringify(userData)}`);
     } catch (error) {
       console.error(error);
       message.channel.send("Erreur : " + error.message);
