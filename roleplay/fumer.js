@@ -68,6 +68,7 @@ module.exports = {
         userData.count += 1;
       }
 
+      // Sauvegarde les données avec set() et non save().
       fumerDB.set(key, userData);
     } catch (error) {
       console.error(error);
