@@ -22,7 +22,11 @@ module.exports = {
         console.log('Données récupérées :', all);
 
         const fumeurs = Object.entries(all)
-          .filter(([_, val]) => val.guildId === message.guild.id)
+          .filter(([_, val]) => {
+            // Log pour vérifier les guildIds
+            console.log(`Filtrage: ${val.guildId} == ${message.guild.id}`);
+            return val.guildId === message.guild.id;
+          })
           .sort((a, b) => b[1].count - a[1].count)
           .slice(0, 10);
 
@@ -71,6 +75,9 @@ module.exports = {
       } else {
         userData.count += 1;
       }
+
+      // Log pour vérifier les données avant de les sauvegarder
+      console.log('Données à sauvegarder:', userData);
 
       fumerDB.set(key, userData);
       console.log(`Données sauvegardées : ${JSON.stringify(userData)}`);
