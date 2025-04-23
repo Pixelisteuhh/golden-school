@@ -21,18 +21,13 @@ module.exports = {
         const all = fumerDB.all();
         console.log('Données récupérées :', all);
 
-        // Affichage de la structure des données pour mieux comprendre
-        all.forEach(entry => {
-          console.log(entry); // Voir chaque entrée récupérée
-        });
-
-        const fumeurs = Object.entries(all)
-          .filter(([_, val]) => {
-            // Log pour vérifier les guildIds
-            console.log(`Filtrage: ${val.guildId} == ${message.guild.id}`);
-            return val.guildId === message.guild.id;
-          })
-          .sort((a, b) => b[1].count - a[1].count)
+        // Filtrage des fumeurs pour la guildId de message.guild.id
+        const fumeurs = all.filter(entry => {
+          // Vérifie si la guildId dans la clé correspond à celle du serveur
+          const [guildId] = entry.key.split('_'); // Découpe la clé pour obtenir guildId
+          console.log(`Filtrage: ${guildId} == ${message.guild.id}`);
+          return guildId === message.guild.id;
+        }).sort((a, b) => b.data.count - a.data.count)
           .slice(0, 10);
 
         if (fumeurs.length === 0) {
