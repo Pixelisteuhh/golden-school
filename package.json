@@ -12,6 +12,7 @@
     "discord-giveaways": "5.1.1",
     "discord.js": "^13.17.1",
     "discordjs-button-pagination": "^1.0.7",
+    "easy-json-database": "^1.5.1",
     "fs": "^0.0.1-security",
     "hastebin-gen": "^2.0.5",
     "moment": "^2.29.1",
