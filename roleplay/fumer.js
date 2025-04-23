@@ -21,12 +21,18 @@ module.exports = {
         const all = fumerDB.all();
         console.log('Données récupérées :', all);
 
+        // Affichage des clés et guildId associés pour vérifier si les données sont bien là
+        all.forEach(entry => {
+          console.log(`Clé: ${entry.key}, Guild ID: ${entry.data.guildId}`);
+        });
+
         // Filtrage des fumeurs pour la guildId de message.guild.id
         const fumeurs = Object.entries(all)
           .filter(([key, val]) => {
-            // Vérifie si la guildId dans la clé correspond à celle du serveur
+            console.log(`Clé complète avant découpe: ${key}`);
             const [guildId] = key.split('_'); // Découpe la clé pour obtenir guildId
-            console.log(`Filtrage: ${guildId} == ${message.guild.id}`);
+            console.log(`Guild ID extrait de la clé: ${guildId}`);
+            console.log(`Comparaison: ${guildId} == ${message.guild.id}`);
             return guildId === message.guild.id;
           })
           .sort((a, b) => b[1].count - a[1].count) // Trie par nombre de fumeurs
@@ -46,7 +52,7 @@ module.exports = {
           .setTitle("🏆 Classement des fumeurs")
           .setDescription(classement)
           .setColor(color)
-          .setFooter(footer);
+          .setFooter({ text: footer });
 
         return message.channel.send({ embeds: [embedList] });
       } catch (error) {
@@ -61,7 +67,7 @@ module.exports = {
       const embedFume = new Discord.MessageEmbed()
         .setDescription(`<@${message.author.id}> fume`)
         .setColor(color)
-        .setFooter(footer);
+        .setFooter({ text: footer });
 
       message.channel.send({ embeds: [embedFume] });
 
