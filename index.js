@@ -67,6 +67,12 @@ for (const file of antiraidFiles) {
     client.commands.set(command.name, command);
 }
 
+const roleplayFiles = readdirSync('./roleplay').filter(file => file.endsWith('.js'));
+for (const file of roleplayFiles) {
+    const command = require(`./roleplay/${file}`);
+    client.commands.set(command.name, command);
+}
+
 const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));
 for (const file of eventFiles) {
     const event = require(`./events/${file}`);
