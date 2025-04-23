@@ -3,8 +3,8 @@ const db = require('quick.db');
 const cl = new db.table("Color");
 const footer = config.bot.footer;
 const Discord = require('discord.js');
-const { Database } = require("easy-json-database");
-const fumerDB = Database("./data/fumer.json");
+const EasyJsonDB = require("easy-json-database");
+const fumerDB = new EasyJsonDB("./data/fumer.json");
 
 module.exports = {
   name: 'fumer',
@@ -72,7 +72,6 @@ module.exports = {
         userData.count += 1;
       }
 
-      // Sauvegarde les données avec set() et non save().
       fumerDB.set(key, userData);
       console.log(`Données sauvegardées : ${JSON.stringify(userData)}`);
     } catch (error) {
